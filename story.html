@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="UTF-8" lang="UTF-8">
+<head>
+	<title>Our Love Story</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<style type="text/css">
+		@font-face {
+			font-family: digit;
+			src: url('digital-7_mono.ttf') format("truetype");
+		}
+	</style>
+	<link href="css/default.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/garden.js"></script>
+    <script type="text/javascript" src="js/functions.js"></script>
+</head>
+
+<body>
+	<canvas id="mx"></canvas>
+	<div id="mainDiv">
+		<div id="content">
+			<div id="code" style="display: none;" class="code">
+				<span class="comments">/**</span><br />
+				<span class="space"/><span class="comments">* I'm a programmer, so I write some code to </span><br />
+				<span class="space"/><span class="comments">* express feelling with love to my baby.</span><br />
+				<span class="space"/><span class="comments">*/</span><br />
+				Boy i = <span class="keyword">new</span> Boy(<span class="string">"Li Fan"</span>);<br />
+				Girl u = <span class="keyword">new</span> Girl(<span class="string">"Shi Xi"</span>);<br />
+				<span class="comments">// Mar 6, 2016, I told you I love you. </span><br />
+				i.love(u);<br />
+				<span class="comments">// Luckily, you accepted </span><br />
+				<span class="comments">// and became my girlfriend eversince.</span><br />
+				u.accepted();<br />
+				<span class="comments">// Since then, I miss u every day.</span><br />
+				i.miss(u);<br />
+				<span class="comments">// And take care of u and our love.</span><br />
+				i.takeCareOf(u);<br />
+				<span class="comments">// You say that you won't be so easy to marry me.</span><br />
+				<span class="comments">// So I keep waiting </span><br />
+				<span class="comments">// and I have confidence that you will.</span><br />
+				<span class="keyword">boolean</span> isHesitate = <span class="keyword">true</span>;<br />
+				<span class="keyword">while</span> (isHesitate) {<br />
+				<span class="placeholder"/>i.waitFor(u);<br />
+				<span class="placeholder"/><span class="comments">// I think it is an important decision</span><br />
+				<span class="placeholder"/><span class="comments">// and you should think it over.</span><br />
+				<span class="placeholder"/>isHesitate = u.thinkOver();<br />
+				}<br />
+				<span class="comments">// After a romantic wedding, </span><br />
+				<span class="comments">// we lived happily ever after.</span><br />
+				i.marry(u);<br />
+				i.livedHappilyWith(u);<br />
+			</div>
+
+			<div id="code2" style="display: none;" class="code">
+				<span class="comments">// Suddenly one day,I got sick.</span><br />
+				Disease ill = <span class="keyword">new</span> Depression();<br />
+				i.sicken(ill);<br />
+				<span class="comments">// We had a long hard time.</span><br />
+				<span class="keyword">do</span> {<br />
+				<span class="placeholder"/><span class="comments">// U was constantly at my side,make me be happy.</span><br />
+				<span class="placeholder"/>u.takeCareOf(i);<br />
+				}<span class="keyword"> while </span>(!i.isRecovered())<br />
+				<span class="comments">// We are family.</span><br />
+				i.gratefulTo(u);<br />
+				u.sayTo(i, <span class="string">"Because I love u"</span>);<br />
+				i.setMaxLuckyValue();<br />
+				<br />
+				toBeContinue();
+			</div>
+
+			<div id="loveHeart">
+				<canvas id="garden"></canvas>
+				<div id="words">
+					<div id="messages">
+						Shi Xi, <br/>I have fallen in love with you for
+						<div id="elapseClock"></div>
+					</div>
+					<div id="loveu">
+						Love u forever and ever.<br/>
+						<div class="signature">- Li Fan</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+
+		var offsetX = $("#loveHeart").width() / 2;
+		var offsetY = $("#loveHeart").height() / 2 + 35;
+
+		var together = new Date();
+		together.setFullYear(2016, 2, 5);
+		console.log(together)
+		together.setHours(20);
+		together.setMinutes(0);
+		together.setSeconds(0);
+		together.setMilliseconds(0);
+		
+		if (!document.createElement('canvas').getContext) {
+			var msg = document.createElement("div");
+			msg.id = "errorMsg";
+			msg.innerHTML = "Your browser doesn't support HTML5!<br/>Recommend use Chrome 14+/IE 9+/Firefox 7+/Safari 4+"; 
+			document.body.appendChild(msg);
+			$("#code").css("display", "none")
+			$("#copyright").css("position", "absolute");
+			$("#copyright").css("bottom", "10px");
+		    document.execCommand("stop");
+		} else {
+			// setTimeout(function () {
+			// 	startHeartAnimation();
+			// }, 5000);
+
+			timeElapse(together);
+			setInterval(function () {
+				timeElapse(together);
+			}, 500);
+
+			$("#code").typewriter(function() {
+				$("#code2").typewriter(startHeartAnimation);
+			});
+			
+		}
+	</script>
+
+	<script type="text/javascript">
+		var canvas = document.getElementById('mx'),
+		context = canvas.getContext('2d'),
+		w = canvas.width = window.innerWidth,
+		h = canvas.height = window.innerHeight;
+			
+		//初始化
+		var clearColor = 'rgba(0, 0, 0, 0.3)',             //用于绘制渐变阴影
+			wordColor = ["#0f0"],             //文字颜色
+			wordsArr = [[' ','范',' 蠡',' '],['❤',' L ',' O ',' V ',' E ','❤'],[' ',' 西','施 ',' '],[' ','一','生','一','世',' ']],                  //将文字拆分进一个数组
+			font_size = 54,  							//字体大小
+			columns = w / font_size,                     //文字降落的列数
+			drops = [];
+
+		
+
+		for(var i = 0; i < columns; i++){
+			drops[i] = 1;
+		}
+
+	function draw(){
+		context.fillStyle = clearColor;
+		context.fillRect(0, 0, w, h);  //注意这
+
+		context.fillStyle = wordColor[Math.floor(Math.random() * wordColor.length)];
+		context.font = font_size + "px Courier";
+		//核心
+		for (var i = 0; i < drops.length; i++){
+				var text = wordsArr[Math.floor(Math.random() * wordsArr.length)];
+				for(var j=0; j<text.length; j++) {
+					text_t = text[j]
+					context.fillText(text_t, i * font_size, drops[i] * font_size);
+					drops[i]++;
+				}
+				if (drops[i] * font_size > h && Math.random() > 0.78){
+						drops[i] = 0;
+				}
+			}
+	}
+
+			
+		//动画循环
+	// setInterval(draw, 50);
+	</script>
+</body>
+</html>
